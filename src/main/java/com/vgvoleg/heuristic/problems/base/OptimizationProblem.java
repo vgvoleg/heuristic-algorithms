@@ -1,6 +1,6 @@
 package com.vgvoleg.heuristic.problems.base;
 
-public final class OptimizationProblem {
+public class OptimizationProblem {
     private OptimizationType type;
     private int dimension;
     private Function function;
@@ -13,15 +13,15 @@ public final class OptimizationProblem {
         this.edges = edges;
     }
 
-    public OptimizationType getType() {
+    public final OptimizationType getType() {
         return type;
     }
 
-    public int getDimension() {
+    public final int getDimension() {
         return dimension;
     }
 
-    public double f(double[] x) {
+    public final double f(double[] x) {
         return function.value(x);
     }
 

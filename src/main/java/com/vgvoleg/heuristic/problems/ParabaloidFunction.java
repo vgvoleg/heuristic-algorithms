@@ -1,13 +1,14 @@
 package com.vgvoleg.heuristic.problems;
 
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
+import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
 public final class ParabaloidFunction {
 
     public static final OptimizationProblem PROBLEM = new OptimizationProblem(
-            "max",
+            OptimizationType.MAX,
             2,
-            (double[] x) -> -x[0] - x[1],
+            (double[] x) -> -x[0] * x[0] - x[1] * x[1],
             new double[][]{
                     {-2, 2},
                     {-2, 2}

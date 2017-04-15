@@ -1,13 +1,14 @@
 package com.vgvoleg.heuristic.problems;
 
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
+import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
 public final class RosenbrockFunction {
 
     private static final int a = 3;
 
     public static final OptimizationProblem PROBLEM = new OptimizationProblem(
-            "max", // TODO: clarify
+            OptimizationType.MAX,
             2,
             (x) -> -a * Math.pow(x[1] - Math.pow(x[0], 2), 2) - Math.pow(1 - x[0], 2),
             new double[][]{

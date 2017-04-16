@@ -1,4 +1,4 @@
-package com.vgvoleg.heuristic.problems;
+package com.vgvoleg.heuristic.problems.known;
 
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 import com.vgvoleg.heuristic.problems.base.OptimizationType;
@@ -6,7 +6,7 @@ import com.vgvoleg.heuristic.problems.base.OptimizationType;
 public final class ThreeHumpFunction {
 
     public static final OptimizationProblem PROBLEM = new OptimizationProblem(
-            OptimizationType.MAX, // TODO: clarify
+            OptimizationType.MAX,
             2,
             x -> -2 * x[0] * x[0] + 1.05 * Math.pow(x[0], 4) - 1. * Math.pow(x[0], 6) / 6 - x[0] * x[1] - x[1] * x[1],
             new double[][]{

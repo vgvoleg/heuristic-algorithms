@@ -1,4 +1,4 @@
-package com.vgvoleg.heuristic.problems;
+package com.vgvoleg.heuristic.problems.known;
 
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 import com.vgvoleg.heuristic.problems.base.OptimizationType;

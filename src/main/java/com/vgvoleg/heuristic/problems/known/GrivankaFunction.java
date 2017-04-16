@@ -3,7 +3,7 @@ package com.vgvoleg.heuristic.problems.known;
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
-public class GrivankaFunction {
+public final class GrivankaFunction {
 
     public static final OptimizationProblem PROBLEM = new OptimizationProblem(
             OptimizationType.MAX,

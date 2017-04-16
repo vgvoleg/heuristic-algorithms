@@ -20,4 +20,7 @@ public final class MultiFunction {
     public static final double[] REAL_EXTREMUM_POINT2 = new double[]{-1.6288, 1.6288};
     public static final double[] REAL_EXTREMUM_POINT3 = new double[]{1.6288, -1.6288};
     public static final double[] REAL_EXTREMUM_POINT4 = new double[]{-1.6288, -1.6288};
+
+    private MultiFunction() {
+    }
 }

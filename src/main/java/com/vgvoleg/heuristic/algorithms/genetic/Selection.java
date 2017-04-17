@@ -1,5 +1,6 @@
 package com.vgvoleg.heuristic.algorithms.genetic;
 
+import com.vgvoleg.heuristic.algorithms.base.Population;
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 
 import static com.vgvoleg.heuristic.algorithms.Generator.uniformDistribution;
@@ -7,32 +8,32 @@ import static com.vgvoleg.heuristic.algorithms.Generator.uniformDistribution;
 class Selection {
 
     interface Strategy {
-        double[][] execute(double[][] population, OptimizationProblem problem);
+        double[][] execute(Population population, OptimizationProblem problem);
     }
 
-    public static Strategy PANMIXIA = (population, problem) -> {
+    static Strategy PANMIXIA = (population, problem) -> {
         double[][] parents = new double[2][problem.getDimension()];
-        int firstParentIndex = (int) uniformDistribution(0, population.length);
+        int firstParentIndex = (int) uniformDistribution(0, population.getSize());
         int secondParentIndex;
         while (true) {
-            secondParentIndex = (int) uniformDistribution(0, population.length);
+            secondParentIndex = (int) uniformDistribution(0, population.getSize());
             if (secondParentIndex != firstParentIndex) {
                 break;
             }
         }
 
-        parents[0] = population[firstParentIndex];
-        parents[1] = population[secondParentIndex];
+        parents[0] = population.getElement(firstParentIndex);
+        parents[1] = population.getElement(secondParentIndex);
 
         return parents;
     };
 
-    public static Strategy ROULETTE = (population, problem) -> {
+    static Strategy ROULETTE = (population, problem) -> {
         // TODO: add realization
         return null;
     };
 
-    public static Strategy TOURNAMENT = (population, problem) -> {
+    static Strategy TOURNAMENT = (population, problem) -> {
         // TODO: add realization
         return null;
     };

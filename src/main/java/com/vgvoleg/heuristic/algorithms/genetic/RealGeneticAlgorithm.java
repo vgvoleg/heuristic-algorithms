@@ -1,6 +1,7 @@
 package com.vgvoleg.heuristic.algorithms.genetic;
 
 import com.vgvoleg.heuristic.algorithms.HeuristicAlgorythm;
+import com.vgvoleg.heuristic.algorithms.base.Population;
 import com.vgvoleg.heuristic.problems.base.OptimizationDetailedResult;
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 import com.vgvoleg.heuristic.problems.base.OptimizationResult;
@@ -14,93 +15,53 @@ class RealGeneticAlgorithm extends HeuristicAlgorythm {
     private Crossing.Strategy crossing;
     private Mutation.Strategy mutation;
 
-    private int COEF;
     private int populationSize;
-    private double[][] population;
     private int maxPopulationNumber;
-    private double[] fitnesses;
-    private double sumFitness;
+    private Population population;
 
-    protected RealGeneticAlgorithm(OptimizationProblem problem, int populationSize, int maxPopulationNumber,
-                                   Selection.Strategy selection, Crossing.Strategy crossing, Mutation.Strategy mutation) {
+    RealGeneticAlgorithm(OptimizationProblem problem, int populationSize, int maxPopulationNumber,
+                         Selection.Strategy selection, Crossing.Strategy crossing, Mutation.Strategy mutation) {
+
         super(problem, OptimizationType.MAX);
-        COEF = problem.getType() == type ? 1 : -1;
+
+        int COEF = problem.getType() == type ? 1 : -1;
         this.selection = selection;
         this.crossing = crossing;
         this.mutation = mutation;
         this.populationSize = populationSize;
         this.maxPopulationNumber = maxPopulationNumber;
-    }
 
-    private void createPopulation() {
-        sumFitness = 0;
-        population = new double[populationSize][problem.getDimension()];
-        for (int i = 0; i < populationSize; i++) {
-            for (int j = 0; j < problem.getDimension(); j++) {
-                population[i][j] = uniformDistribution(problem.getLeftEdge(j), problem.getRightEdge(j));
-            }
-            fitnesses[i] = COEF * problem.f(population[i]);
-            sumFitness += fitnesses[i];
-        }
+        this.population = new Population(populationSize, problem, COEF);
     }
 
     @Override
     public OptimizationResult findResult() {
         OptimizationResult result = null;
-
         int currentIteration = 1;
         int currentPopulation = 0;
-        fitnesses = new double[populationSize];
-        createPopulation();
+        population.init();
+
         double[][] parents, childrens, mutants;
-        boolean flag = true;
-        while (flag) {
+        while (currentPopulation != maxPopulationNumber) {
             parents = selection.execute(population, problem);
             childrens = crossing.execute(parents, problem);
             mutants = mutation.execute(childrens, problem);
 
             int indexMutant = (uniformDistribution(0, 1) < 0.5) ? 0 : 1;
-            int indexFuckingRetard = 0;
-            double minFittness = fitnesses[0];
-            for (int i = 1; i < populationSize; i++) {
-                if (minFittness > fitnesses[i]) {
-                    indexFuckingRetard = i;
-                    minFittness = fitnesses[i];
-                }
-            }
-
-            population[indexFuckingRetard] = mutants[indexMutant];
-
-            sumFitness -= fitnesses[indexFuckingRetard];
-            fitnesses[indexFuckingRetard] = COEF * problem.f(population[indexFuckingRetard]);
-            sumFitness += fitnesses[indexFuckingRetard];
-
+            population.changeWorstElement(mutants[indexMutant]);
 
             if (currentIteration < populationSize) {
                 currentIteration++;
             } else {
-
-                int indexOfWinner = 0;
-                double maxFittness = fitnesses[0];
-                for (int i = 1; i < populationSize; i++) {
-                    if (maxFittness < fitnesses[i]) {
-                        indexOfWinner = i;
-                        maxFittness = fitnesses[i];
-                    }
-                }
-
                 currentPopulation++;
                 if (currentPopulation == maxPopulationNumber) {
-                    flag = false;
-                    result = new OptimizationResult(COEF * problem.f(population[indexOfWinner]), population[indexOfWinner]);
+                    int indexOfWinner = population.getBestElementIndex();
+                    result = new OptimizationResult(population.getFitness(indexOfWinner), population.getElement(indexOfWinner));
                 } else {
                     currentIteration = 1;
                 }
             }
-
         }
-
-
         return result;
     }
 
@@ -109,62 +70,34 @@ class RealGeneticAlgorithm extends HeuristicAlgorythm {
         OptimizationDetailedResult result = new OptimizationDetailedResult();
         int screenshotMark = (maxPopulationNumber >= screenshotMaxNum) ? maxPopulationNumber / screenshotMaxNum : maxPopulationNumber;
         int screenshotCurrNum = 0;
-
         int currentIteration = 1;
         int currentPopulation = 0;
-        sumFitness = 0;
-        fitnesses = new double[populationSize];
-        createPopulation();
+        population.init();
+
         double[][] parents, childrens, mutants;
-        boolean flag = true;
-        while (flag) {
+        while (currentPopulation != maxPopulationNumber) {
             parents = selection.execute(population, problem);
             childrens = crossing.execute(parents, problem);
             mutants = mutation.execute(childrens, problem);
 
             int indexMutant = (uniformDistribution(0, 1) < 0.5) ? 0 : 1;
-            int indexFuckingRetard = 0;
-            double minFittness = fitnesses[0];
-            for (int i = 1; i < populationSize; i++) {
-                if (minFittness > fitnesses[i]) {
-                    indexFuckingRetard = i;
-                    minFittness = fitnesses[i];
-                }
-            }
-
-            population[indexFuckingRetard] = mutants[indexMutant];
-
-            sumFitness -= fitnesses[indexFuckingRetard];
-            fitnesses[indexFuckingRetard] = COEF * problem.f(population[indexFuckingRetard]);
-            sumFitness += fitnesses[indexFuckingRetard];
-
+            population.changeWorstElement(mutants[indexMutant]);
 
             if (currentIteration < populationSize) {
                 currentIteration++;
             } else {
-
-                int indexOfWinner = 0;
-                double maxFittness = fitnesses[0];
-                for (int i = 1; i < populationSize; i++) {
-                    if (maxFittness < fitnesses[i]) {
-                        indexOfWinner = i;
-                        maxFittness = fitnesses[i];
-                    }
-                }
-                if (currentPopulation / screenshotMark >= screenshotCurrNum) {
+                if (currentPopulation / screenshotMark > screenshotCurrNum) {
                     screenshotCurrNum++;
-                    result.addExtremum(COEF * problem.f(population[indexOfWinner]), population[indexOfWinner]);
+                    result.addPopulation(population.getScreenshot());
                 }
                 currentPopulation++;
                 if (currentPopulation == maxPopulationNumber) {
-                    flag = false;
-                    result.addExtremum(COEF * problem.f(population[indexOfWinner]), population[indexOfWinner]);
+                    result.addPopulation(population.getScreenshot());
                 } else {
                     currentIteration = 1;
                 }
             }
         }
-
         return result;
     }
 }

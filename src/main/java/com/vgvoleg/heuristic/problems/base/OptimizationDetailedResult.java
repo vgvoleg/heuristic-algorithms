@@ -1,40 +1,37 @@
 package com.vgvoleg.heuristic.problems.base;
 
+import com.vgvoleg.heuristic.algorithms.base.Population;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public final class OptimizationDetailedResult {
 
-    // TODO: refactor for saving population, not the only point
-
-    private List<Double> extremumValues = new LinkedList<>();
-    private List<double[]> extremumPoints = new LinkedList<>();
+    private List<Population> populations;
 
     public OptimizationDetailedResult() {
+        populations = new LinkedList<>();
     }
 
-    public void addExtremum(double extremumValue, double[] extremumPoint) {
-        extremumValues.add(extremumValue);
-        extremumPoints.add(extremumPoint);
+    public void addPopulation(Population population) {
+        populations.add(population);
     }
 
-    public List<Double> getExtremumValues() {
-        return extremumValues;
-    }
-
-    public List<double[]> getExtremumPoints() {
-        return extremumPoints;
+    public Population getPopulation(int index) {
+        return populations.get(index);
     }
 
     public void printResult() {
-        for (int i = 0; i < extremumValues.size(); i++) {
+        for (int i = 0; i < populations.size(); i++) {
             System.out.println("Screenshot #" + i);
             System.out.print("Extremum point: {");
-            for (int j = 0; j < extremumPoints.get(i).length - 1; j++) {
-                System.out.printf("%.6f, ", extremumPoints.get(i)[j]);
+            int bestIndex = populations.get(i).getBestElementIndex();
+            int j;
+            for (j = 0; j < populations.get(i).getDimension() - 1; j++) {
+                System.out.printf("%.6f, ", populations.get(i).getElement(bestIndex)[j]);
             }
-            System.out.printf("%.6f}\n", extremumPoints.get(i)[extremumPoints.get(i).length - 1]);
-            System.out.printf("Extremum value: %.6f\n", extremumValues.get(i));
+            System.out.printf("%.6f}\n", populations.get(i).getElement(bestIndex)[j]);
+            System.out.printf("Extremum value: %.6f\n", populations.get(i).getFitness(bestIndex));
             System.out.println("===========================");
         }
     }

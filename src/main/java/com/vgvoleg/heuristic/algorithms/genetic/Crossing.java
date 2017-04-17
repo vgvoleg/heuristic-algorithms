@@ -10,7 +10,7 @@ class Crossing {
         double[][] execute(double[][] population, OptimizationProblem problem);
     }
 
-    public static final Strategy SIMPLE_CROSSOVER = (population, problem) -> {
+    static final Strategy SIMPLE_CROSSOVER = (population, problem) -> {
         double[][] childrens = new double[2][problem.getDimension()];
         int p = (int) uniformDistribution(0, problem.getDimension());
         for (int i = 0; i < p; i++) {
@@ -25,12 +25,12 @@ class Crossing {
         return childrens;
     };
 
-    public static final Strategy FLAT_CROSSOVER = (population, problem) -> {
+    static final Strategy FLAT_CROSSOVER = (population, problem) -> {
         // TODO: add realization
         return null;
     };
 
-    public static final Strategy ARITHMETICAL = (population, problem) -> {
+    static final Strategy ARITHMETICAL = (population, problem) -> {
         // TODO: add realization
         return null;
     };

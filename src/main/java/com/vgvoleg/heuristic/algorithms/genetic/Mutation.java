@@ -10,7 +10,7 @@ class Mutation {
         double[][] execute(double[][] population, OptimizationProblem problem);
     }
 
-    public static Strategy RANDOM = (population, problem) -> {
+    static Strategy RANDOM = (population, problem) -> {
         boolean flag = true;
         int i = 0;
         while (flag) {
@@ -35,7 +35,7 @@ class Mutation {
         return population;
     };
 
-    public static Strategy IRREGULAR = (population, problem) -> {
+    static Strategy IRREGULAR = (population, problem) -> {
         // TODO: add realisation
         return null;
     };

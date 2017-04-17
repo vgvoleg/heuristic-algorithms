@@ -23,8 +23,6 @@ class RealGeneticAlgorithm extends HeuristicAlgorythm {
                          Selection.Strategy selection, Crossing.Strategy crossing, Mutation.Strategy mutation) {
 
         super(problem, OptimizationType.MAX);
-
-        int COEF = problem.getType() == type ? 1 : -1;
         this.selection = selection;
         this.crossing = crossing;
         this.mutation = mutation;

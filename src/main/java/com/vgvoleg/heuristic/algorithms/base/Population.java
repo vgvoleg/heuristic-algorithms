@@ -9,6 +9,7 @@ import static com.vgvoleg.heuristic.algorithms.Generator.uniformDistribution;
 
 public class Population implements Cloneable {
     private double[][][] population;
+    private Comparator<double[][]> comparator = null;
 
     private int size;
     private int dimension;
@@ -85,7 +86,11 @@ public class Population implements Cloneable {
         sumFitness += population[indexWorstElem][1][0];
     }
 
-    public void sort(Comparator<double[][]> comparator) {
+    public void setComparator(Comparator<double[][]> comparator) {
+        this.comparator = comparator;
+    }
+
+    public void sort() {
         Arrays.sort(population, comparator);
     }
 

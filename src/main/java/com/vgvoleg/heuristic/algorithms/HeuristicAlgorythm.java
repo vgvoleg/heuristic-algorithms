@@ -16,6 +16,6 @@ public abstract class HeuristicAlgorythm {
 
     public abstract OptimizationResult findResult();
 
-    public abstract OptimizationDetailedResult findDetailedResult();
+    public abstract OptimizationDetailedResult findDetailedResult(int screenShotMaxNum);
 
 }

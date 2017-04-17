@@ -5,7 +5,7 @@ import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
 public final class RastriginFunction {
 
-    private static int dimension = 3;
+    private static int dimension = 5;
 
     public static final OptimizationProblem PROBLEM = new OptimizationProblem(
             OptimizationType.MIN,

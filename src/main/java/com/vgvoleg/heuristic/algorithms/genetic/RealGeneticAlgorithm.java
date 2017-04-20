@@ -7,8 +7,6 @@ import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 import com.vgvoleg.heuristic.problems.base.OptimizationResult;
 import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
-import static com.vgvoleg.heuristic.algorithms.Generator.uniformDistribution;
-
 class RealGeneticAlgorithm extends HeuristicAlgorithm {
 
     private Selection.Strategy selection;
@@ -32,73 +30,73 @@ class RealGeneticAlgorithm extends HeuristicAlgorithm {
         this.populationSize = populationSize;
         this.maxPopulationNumber = maxPopulationNumber;
 
-        this.population = new Population(populationSize, problem, COEF);
+//        this.population = new Population(populationSize, problem);
     }
 
     @Override
     public OptimizationResult findResult() {
-        OptimizationResult result = null;
-        int currentIteration = 1;
-        int currentPopulation = 0;
-        population.init();
-
-        double[][] parents, childrens, mutants;
-        while (!stop.execute(currentPopulation, maxPopulationNumber)) {
-            parents = selection.execute(population, problem);
-            childrens = crossing.execute(parents, problem);
-            mutants = mutation.execute(childrens, problem);
-
-            int indexMutant = (uniformDistribution(0, 1) < 0.5) ? 0 : 1;
-            population.changeWorstElement(mutants[indexMutant]);
-
-            if (currentIteration < populationSize) {
-                currentIteration++;
-            } else {
-                currentPopulation++;
-                if (currentPopulation == maxPopulationNumber) {
-                    int indexOfWinner = population.getBestElementIndex();
-                    result = new OptimizationResult(population.getFitness(indexOfWinner), population.getElement(indexOfWinner));
-                } else {
-                    currentIteration = 1;
-                }
-            }
-        }
-        return result;
+//        OptimizationResult result = null;
+//        int currentIteration = 1;
+//        int currentPopulation = 0;
+//        population.init();
+//
+//        double[][] parents, childrens, mutants;
+//        while (!stop.execute(currentPopulation, maxPopulationNumber)) {
+//            parents = selection.execute(population, problem);
+//            childrens = crossing.execute(parents, problem);
+//            mutants = mutation.execute(childrens, problem);
+//
+//            int indexMutant = (uniformDistribution(0, 1) < 0.5) ? 0 : 1;
+//            population.changeWorstElement(mutants[indexMutant]);
+//
+//            if (currentIteration < populationSize) {
+//                currentIteration++;
+//            } else {
+//                currentPopulation++;
+//                if (currentPopulation == maxPopulationNumber) {
+//                    int indexOfWinner = population.getBestElementIndex();
+//                    result = new OptimizationResult(population.getFitness(indexOfWinner), population.getElement(indexOfWinner));
+//                } else {
+//                    currentIteration = 1;
+//                }
+//            }
+//        }
+        return null;
     }
 
     @Override
     public OptimizationDetailedResult findDetailedResult(int screenshotMaxNum) {
-        OptimizationDetailedResult result = new OptimizationDetailedResult();
-        int screenshotMark = (maxPopulationNumber >= screenshotMaxNum) ? maxPopulationNumber / screenshotMaxNum : maxPopulationNumber;
-        int screenshotCurrNum = 0;
-        int currentIteration = 1;
-        int currentPopulation = 0;
-        population.init();
-
-        double[][] parents, childrens, mutants;
-        while (currentPopulation != maxPopulationNumber) {
-            parents = selection.execute(population, problem);
-            childrens = crossing.execute(parents, problem);
-            mutants = mutation.execute(childrens, problem);
-
-            int indexMutant = (uniformDistribution(0, 1) < 0.5) ? 0 : 1;
-            population.changeWorstElement(mutants[indexMutant]);
-
-            if (currentIteration < populationSize) {
-                currentIteration++;
-            } else {
-                if (currentPopulation / screenshotMark > screenshotCurrNum) {
-                    screenshotCurrNum++;
-                    result.addPopulation(population.getScreenshot());
-                }
-                currentPopulation++;
-                if (currentPopulation == maxPopulationNumber) {
-                    result.addPopulation(population.getScreenshot());
-                } else {
-                    currentIteration = 1;
-                }
-            }
-        }
-        return result;
+////        OptimizationDetailedResult result = new OptimizationDetailedResult();
+//        int screenshotMark = (maxPopulationNumber >= screenshotMaxNum) ? maxPopulationNumber / screenshotMaxNum : maxPopulationNumber;
+//        int screenshotCurrNum = 0;
+//        int currentIteration = 1;
+//        int currentPopulation = 0;
+//        population.init();
+//
+//        double[][] parents, childrens, mutants;
+//        while (currentPopulation != maxPopulationNumber) {
+//            parents = selection.execute(population, problem);
+//            childrens = crossing.execute(parents, problem);
+//            mutants = mutation.execute(childrens, problem);
+//
+//            int indexMutant = (uniformDistribution(0, 1) < 0.5) ? 0 : 1;
+//            population.changeWorstElement(mutants[indexMutant]);
+//
+//            if (currentIteration < populationSize) {
+//                currentIteration++;
+//            } else {
+//                if (currentPopulation / screenshotMark > screenshotCurrNum) {
+//                    screenshotCurrNum++;
+////                    result.addPopulation(population.getScreenshot());
+//                }
+//                currentPopulation++;
+//                if (currentPopulation == maxPopulationNumber) {
+////                    result.addPopulation(population.getScreenshot());
+//                } else {
+//                    currentIteration = 1;
+//                }
+//            }
+//        }
+        return null;
     }
 }

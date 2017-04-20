@@ -1,38 +1,33 @@
 package com.vgvoleg.heuristic.problems.base;
 
-import com.vgvoleg.heuristic.algorithms.genetic.base.Population;
-
 import java.util.LinkedList;
 import java.util.List;
 
 public final class OptimizationDetailedResult {
 
-    private List<Population> populations;
+    private List<double[][]> populations;
+    private int screenshotMark;
+    private int screenshotCurrNum;
 
-    public OptimizationDetailedResult() {
+    public OptimizationDetailedResult(int iterations, int screenshotNumber) {
+        screenshotMark = (iterations >= screenshotNumber) ?
+                iterations / screenshotNumber : iterations;
+        screenshotCurrNum = 0;
         populations = new LinkedList<>();
     }
 
-    public void addPopulation(Population population) {
-        populations.add(population);
-    }
-
-    public Population getPopulation(int index) {
-        return populations.get(index);
-    }
-
-    public void printResult() {
-        for (int i = 0; i < populations.size(); i++) {
-            System.out.println("Screenshot #" + i);
-            System.out.print("Extremum point: {");
-            int bestIndex = populations.get(i).getBestElementIndex();
-            int j;
-            for (j = 0; j < populations.get(i).getDimension() - 1; j++) {
-                System.out.printf("%.6f, ", populations.get(i).getElement(bestIndex)[j]);
+    public void addPopulation(double[][] population, int iteration) {
+        if (iteration / screenshotMark > screenshotCurrNum) {
+            screenshotCurrNum++;
+            double[][] save = new double[population.length][population[0].length];
+            for (int i = 0; i < population.length; i++) {
+                save[i] = population[i].clone();
             }
-            System.out.printf("%.6f}\n", populations.get(i).getElement(bestIndex)[j]);
-            System.out.printf("Extremum value: %.6f\n", populations.get(i).getFitness(bestIndex));
-            System.out.println("===========================");
+            populations.add(save);
         }
+    }
+
+    public List<double[][]> getPopulations() {
+        return populations;
     }
 }

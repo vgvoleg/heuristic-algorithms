@@ -8,13 +8,17 @@ import com.vgvoleg.heuristic.problems.base.OptimizationType;
 public abstract class HeuristicAlgorithm {
     protected OptimizationProblem problem;
     protected OptimizationType type;
-    protected int COEF;
+    private int COEF;
 
     public HeuristicAlgorithm(OptimizationProblem problem, OptimizationType type) {
         this.problem = problem;
         this.type = type;
         this.COEF = problem.getType() == type ? 1 : -1;
 
+    }
+
+    protected double function(double[] x) {
+        return COEF * problem.f(x);
     }
 
     public abstract OptimizationResult findResult();

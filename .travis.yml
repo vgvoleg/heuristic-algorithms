@@ -1,0 +1,14 @@
+notifications:
+  - email: false
+
+language: java
+
+jdk:
+  - oraclejdk8
+
+branches:
+  only:
+  - master
+
+script:
+  - mvn clean test cobertura:cobertura

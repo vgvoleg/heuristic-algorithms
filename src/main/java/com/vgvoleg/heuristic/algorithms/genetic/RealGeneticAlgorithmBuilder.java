@@ -7,6 +7,7 @@ public class RealGeneticAlgorithmBuilder {
     private Selection.Strategy selection = Selection.PANMIXIA;
     private Crossing.Strategy crossing = Crossing.SIMPLE_CROSSOVER;
     private Mutation.Strategy mutation = Mutation.RANDOM;
+    private Stop.Strategy stop = Stop.COUNT_ITERATIONS;
 
     private int populationSize = 20;
     private int maxPopulationNumber = 1000;
@@ -65,6 +66,7 @@ public class RealGeneticAlgorithmBuilder {
     }
 
     public RealGeneticAlgorithm buildForProblem(OptimizationProblem problem) {
-        return new RealGeneticAlgorithm(problem, populationSize, maxPopulationNumber, selection, crossing, mutation);
+        return new RealGeneticAlgorithm(problem, populationSize, maxPopulationNumber,
+                selection, crossing, mutation, stop);
     }
 }

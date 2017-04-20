@@ -14,18 +14,21 @@ class RealGeneticAlgorithm extends HeuristicAlgorithm {
     private Selection.Strategy selection;
     private Crossing.Strategy crossing;
     private Mutation.Strategy mutation;
+    private Stop.Strategy stop;
 
     private int populationSize;
     private int maxPopulationNumber;
     private Population population;
 
     RealGeneticAlgorithm(OptimizationProblem problem, int populationSize, int maxPopulationNumber,
-                         Selection.Strategy selection, Crossing.Strategy crossing, Mutation.Strategy mutation) {
+                         Selection.Strategy selection, Crossing.Strategy crossing, Mutation.Strategy mutation,
+                         Stop.Strategy stop) {
 
         super(problem, OptimizationType.MAX);
         this.selection = selection;
         this.crossing = crossing;
         this.mutation = mutation;
+        this.stop = stop;
         this.populationSize = populationSize;
         this.maxPopulationNumber = maxPopulationNumber;
 
@@ -40,7 +43,7 @@ class RealGeneticAlgorithm extends HeuristicAlgorithm {
         population.init();
 
         double[][] parents, childrens, mutants;
-        while (currentPopulation != maxPopulationNumber) {
+        while (!stop.execute(currentPopulation, maxPopulationNumber)) {
             parents = selection.execute(population, problem);
             childrens = crossing.execute(parents, problem);
             mutants = mutation.execute(childrens, problem);

@@ -111,6 +111,6 @@ public class ParticleSwarmOptimization extends HeuristicAlgorithm {
             currentIteration++;
             result.addPopulation(agents, currentIteration);
         }
-        return null;
+        return result;
     }
 }

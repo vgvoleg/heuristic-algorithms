@@ -1,7 +1,7 @@
 package com.vgvoleg.heuristic.algorithms.genetic;
 
-import com.vgvoleg.heuristic.algorithms.HeuristicAlgorythm;
-import com.vgvoleg.heuristic.algorithms.base.Population;
+import com.vgvoleg.heuristic.algorithms.HeuristicAlgorithm;
+import com.vgvoleg.heuristic.algorithms.genetic.base.Population;
 import com.vgvoleg.heuristic.problems.base.OptimizationDetailedResult;
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 import com.vgvoleg.heuristic.problems.base.OptimizationResult;
@@ -9,7 +9,7 @@ import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
 import static com.vgvoleg.heuristic.algorithms.Generator.uniformDistribution;
 
-class RealGeneticAlgorithm extends HeuristicAlgorythm {
+class RealGeneticAlgorithm extends HeuristicAlgorithm {
 
     private Selection.Strategy selection;
     private Crossing.Strategy crossing;

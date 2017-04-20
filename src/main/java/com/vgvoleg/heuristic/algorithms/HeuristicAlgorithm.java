@@ -5,12 +5,12 @@ import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 import com.vgvoleg.heuristic.problems.base.OptimizationResult;
 import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
-public abstract class HeuristicAlgorythm {
+public abstract class HeuristicAlgorithm {
     protected OptimizationProblem problem;
     protected OptimizationType type;
     protected int COEF;
 
-    public HeuristicAlgorythm(OptimizationProblem problem, OptimizationType type) {
+    public HeuristicAlgorithm(OptimizationProblem problem, OptimizationType type) {
         this.problem = problem;
         this.type = type;
         this.COEF = problem.getType() == type ? 1 : -1;

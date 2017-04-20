@@ -1,6 +1,6 @@
 package com.vgvoleg.heuristic.problems.base;
 
-import com.vgvoleg.heuristic.algorithms.base.Population;
+import com.vgvoleg.heuristic.algorithms.genetic.base.Population;
 
 import java.util.LinkedList;
 import java.util.List;

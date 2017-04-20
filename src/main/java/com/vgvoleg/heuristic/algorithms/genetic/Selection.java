@@ -1,6 +1,6 @@
 package com.vgvoleg.heuristic.algorithms.genetic;
 
-import com.vgvoleg.heuristic.algorithms.base.Population;
+import com.vgvoleg.heuristic.algorithms.genetic.base.Population;
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 
 import static com.vgvoleg.heuristic.algorithms.Generator.uniformDistribution;

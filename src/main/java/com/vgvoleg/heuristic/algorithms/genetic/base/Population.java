@@ -1,4 +1,4 @@
-package com.vgvoleg.heuristic.algorithms.base;
+package com.vgvoleg.heuristic.algorithms.genetic.base;
 
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 
@@ -69,6 +69,21 @@ public class Population implements Cloneable {
 
     public double getFitness(int index) {
         return population[index][1][0];
+    }
+
+    public double[][] getPair(int index) {
+        return population[index];
+    }
+
+    public void setPair(int index, double[][] pair) {
+        population[index] = pair;
+    }
+
+    public void changeElementRandomly(int i) {
+        for (int j = 0; j < dimension; j++) {
+            population[i][0][j] = uniformDistribution(problem.getLeftEdge(j), problem.getRightEdge(j));
+        }
+        population[i][1][0] = COEF * problem.f(population[i][0]);
     }
 
     public void changeWorstElement(double[] newElem) {

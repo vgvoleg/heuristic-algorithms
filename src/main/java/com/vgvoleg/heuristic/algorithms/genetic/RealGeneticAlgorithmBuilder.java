@@ -1,8 +1,10 @@
 package com.vgvoleg.heuristic.algorithms.genetic;
 
+import com.vgvoleg.heuristic.algorithms.AlgorithmBuilder;
+import com.vgvoleg.heuristic.algorithms.HeuristicAlgorithm;
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 
-public class RealGeneticAlgorithmBuilder {
+public class RealGeneticAlgorithmBuilder implements AlgorithmBuilder {
 
     private Selection.Strategy selection = Selection.PANMIXIA;
     private Crossing.Strategy crossing = Crossing.SIMPLE_CROSSOVER;
@@ -65,7 +67,8 @@ public class RealGeneticAlgorithmBuilder {
         return this;
     }
 
-    public RealGeneticAlgorithm buildForProblem(OptimizationProblem problem) {
+    @Override
+    public HeuristicAlgorithm buildForProblem(OptimizationProblem problem) {
         return new RealGeneticAlgorithm(problem, populationSize, maxPopulationNumber,
                 selection, crossing, mutation, stop);
     }

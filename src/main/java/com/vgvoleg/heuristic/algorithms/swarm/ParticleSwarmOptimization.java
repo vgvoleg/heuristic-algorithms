@@ -8,7 +8,7 @@ import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
 import static com.vgvoleg.heuristic.algorithms.Generator.uniformDistribution;
 
-public class ParticleSwarmOptimization extends HeuristicAlgorithm {
+class ParticleSwarmOptimization extends HeuristicAlgorithm {
 
     private int agentCount;
     private double[][] agents;
@@ -21,8 +21,8 @@ public class ParticleSwarmOptimization extends HeuristicAlgorithm {
 
     private double omega, c1, c2;
 
-    public ParticleSwarmOptimization(OptimizationProblem problem, int agentCount, int maxIterations,
-                                     double omega, double c1, double c2) {
+    ParticleSwarmOptimization(OptimizationProblem problem, int agentCount, int maxIterations,
+                              double omega, double c1, double c2) {
         super(problem, OptimizationType.MIN);
         this.agentCount = agentCount;
         this.maxIterations = maxIterations;

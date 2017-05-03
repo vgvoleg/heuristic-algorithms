@@ -10,7 +10,7 @@ class Selection {
         double[][] execute(double[][] population, OptimizationProblem problem);
     }
 
-    public static Strategy PANMIXIA = (population, problem) -> {
+    static Strategy PANMIXIA = (population, problem) -> {
         double[][] parents = new double[2][problem.getDimension()];
         int firstParentIndex = (int) uniformDistribution(0, population.length);
         int secondParentIndex;
@@ -27,12 +27,12 @@ class Selection {
         return parents;
     };
 
-    public static Strategy ROULETTE = (population, problem) -> {
+    static Strategy ROULETTE = (population, problem) -> {
         // TODO: add realization
         return null;
     };
 
-    public static Strategy TOURNAMENT = (population, problem) -> {
+    static Strategy TOURNAMENT = (population, problem) -> {
         // TODO: add realization
         return null;
     };

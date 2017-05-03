@@ -10,8 +10,8 @@ public final class ParabaloidFunction {
             2,
             (double[] x) -> -x[0] * x[0] - x[1] * x[1],
             new double[][]{
-                    {-2, 2},
-                    {-2, 2}
+                    {-200, 200},
+                    {-200, 200}
             }
     );
 

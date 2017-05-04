@@ -6,7 +6,7 @@ import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 import com.vgvoleg.heuristic.problems.base.OptimizationResult;
 import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
-import static com.vgvoleg.heuristic.algorithms.Generator.uniformDistribution;
+import static com.vgvoleg.heuristic.util.Generator.uniformDistribution;
 
 class RealGeneticAlgorithm extends HeuristicAlgorithm {
 

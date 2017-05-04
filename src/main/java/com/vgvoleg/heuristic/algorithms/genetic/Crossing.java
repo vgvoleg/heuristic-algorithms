@@ -2,7 +2,7 @@ package com.vgvoleg.heuristic.algorithms.genetic;
 
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 
-import static com.vgvoleg.heuristic.algorithms.Generator.uniformDistribution;
+import static com.vgvoleg.heuristic.util.Generator.uniformDistribution;
 
 class Crossing {
 

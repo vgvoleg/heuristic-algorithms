@@ -17,6 +17,11 @@ public abstract class HeuristicAlgorithm {
 
     }
 
+    public void setProblem(OptimizationProblem problem) {
+        this.problem = problem;
+        this.COEF = problem.getType() == type ? 1 : -1;
+    }
+
     protected double function(double[] x) {
         return COEF * problem.f(x);
     }

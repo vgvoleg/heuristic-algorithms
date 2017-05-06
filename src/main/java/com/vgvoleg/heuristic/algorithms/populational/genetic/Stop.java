@@ -1,4 +1,4 @@
-package com.vgvoleg.heuristic.algorithms.genetic;
+package com.vgvoleg.heuristic.algorithms.populational.genetic;
 
 class Stop {
 

@@ -1,20 +1,14 @@
-package com.vgvoleg.heuristic.algorithms.swarm;
+package com.vgvoleg.heuristic.algorithms.populational.swarm;
 
-import com.vgvoleg.heuristic.algorithms.HeuristicAlgorithm;
-import com.vgvoleg.heuristic.problems.base.OptimizationDetailedResult;
+import com.vgvoleg.heuristic.algorithms.populational.PopulationalAlgorithm;
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
-import com.vgvoleg.heuristic.problems.base.OptimizationResult;
 import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
 import static com.vgvoleg.heuristic.util.Generator.uniformDistribution;
 
-class ParticleSwarmOptimization extends HeuristicAlgorithm {
+class ParticleSwarmOptimization extends PopulationalAlgorithm {
 
-    private int agentCount;
-    private double[][] agents;
     private double[][] velocities;
-
-    private int maxIterations;
 
     private double[][] bestParticlePosition;
     private double[] bestSwarmPosition;
@@ -23,19 +17,17 @@ class ParticleSwarmOptimization extends HeuristicAlgorithm {
 
     ParticleSwarmOptimization(OptimizationProblem problem, int agentCount, int maxIterations,
                               double omega, double c1, double c2) {
-        super(problem, OptimizationType.MIN);
-        this.agentCount = agentCount;
-        this.maxIterations = maxIterations;
+        super(problem, OptimizationType.MIN, agentCount, maxIterations);
         this.omega = omega;
         this.c1 = c1;
         this.c2 = c2;
     }
 
 
-    private void init() {
-        agents = new double[agentCount][problem.getDimension()];
-        velocities = new double[agentCount][problem.getDimension()];
+    protected void init() {
+        super.init();
 
+        velocities = new double[agentCount][problem.getDimension()];
         bestSwarmPosition = new double[problem.getDimension()];
         bestParticlePosition = new double[agentCount][problem.getDimension()];
 
@@ -44,10 +36,9 @@ class ParticleSwarmOptimization extends HeuristicAlgorithm {
             for (int j = 0; j < problem.getDimension(); j++) {
                 low = problem.getLeftEdge(j);
                 high = problem.getRightEdge(j);
-                agents[i][j] = uniformDistribution(low, high);
                 velocities[i][j] = uniformDistribution(-(high - low), (high - low));
             }
-            bestParticlePosition[i] = agents[i];
+            bestParticlePosition[i] = agents[i].clone();
         }
         bestSwarmPosition = bestParticlePosition[0].clone();
         updateBestPosition();
@@ -61,7 +52,8 @@ class ParticleSwarmOptimization extends HeuristicAlgorithm {
         }
     }
 
-    private void move() {
+    @Override
+    protected void generateNewPopulation() {
         double rand1, rand2;
         for (int i = 0; i < agentCount; i++) {
             for (int j = 0; j < problem.getDimension(); j++) {
@@ -85,32 +77,32 @@ class ParticleSwarmOptimization extends HeuristicAlgorithm {
         }
         updateBestPosition();
     }
-
-    @Override
-    public OptimizationResult findResult() {
-        OptimizationResult result = null;
-
-        int currentIteration = 0;
-        init();
-        while (currentIteration != maxIterations) {
-            move();
-            currentIteration++;
-        }
-        result = new OptimizationResult(problem.f(bestSwarmPosition), bestSwarmPosition);
-        return result;
-    }
-
-    @Override
-    public OptimizationDetailedResult findDetailedResult(int screenshotMaxNum) {
-        OptimizationDetailedResult result = new OptimizationDetailedResult(maxIterations, screenshotMaxNum);
-
-        int currentIteration = 0;
-        init();
-        while (currentIteration != maxIterations) {
-            move();
-            currentIteration++;
-            result.addPopulation(agents, currentIteration);
-        }
-        return result;
-    }
+//
+//    @Override
+//    public OptimizationResult findResult() {
+//        OptimizationResult result = null;
+//
+//        int currentIteration = 0;
+//        init();
+//        while (currentIteration != maxIterations) {
+//            generateNewPopulation();
+//            currentIteration++;
+//        }
+//        result = new OptimizationResult(problem.f(bestSwarmPosition), bestSwarmPosition);
+//        return result;
+//    }
+//
+//    @Override
+//    public OptimizationDetailedResult findDetailedResult(int screenshotMaxNum) {
+//        OptimizationDetailedResult result = new OptimizationDetailedResult(maxIterations, screenshotMaxNum);
+//
+//        int currentIteration = 0;
+//        init();
+//        while (currentIteration != maxIterations) {
+//            generateNewPopulation();
+//            currentIteration++;
+//            result.addPopulation(agents, currentIteration);
+//        }
+//        return result;
+//    }
 }

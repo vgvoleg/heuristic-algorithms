@@ -44,10 +44,13 @@ class ParticleSwarmOptimization extends PopulationalAlgorithm {
         updateBestPosition();
     }
 
-    private void updateBestPosition() {
+    @Override
+    protected void updateBestPosition() {
         for (int i = 0; i < agentCount; i++) {
             if (function(bestParticlePosition[i]) < function(bestSwarmPosition)) {
                 bestSwarmPosition = bestParticlePosition[i].clone();
+                bestPosition = bestSwarmPosition.clone();
+                bestSolution = function(bestPosition);
             }
         }
     }
@@ -77,32 +80,4 @@ class ParticleSwarmOptimization extends PopulationalAlgorithm {
         }
         updateBestPosition();
     }
-//
-//    @Override
-//    public OptimizationResult findResult() {
-//        OptimizationResult result = null;
-//
-//        int currentIteration = 0;
-//        init();
-//        while (currentIteration != maxIterations) {
-//            generateNewPopulation();
-//            currentIteration++;
-//        }
-//        result = new OptimizationResult(problem.f(bestSwarmPosition), bestSwarmPosition);
-//        return result;
-//    }
-//
-//    @Override
-//    public OptimizationDetailedResult findDetailedResult(int screenshotMaxNum) {
-//        OptimizationDetailedResult result = new OptimizationDetailedResult(maxIterations, screenshotMaxNum);
-//
-//        int currentIteration = 0;
-//        init();
-//        while (currentIteration != maxIterations) {
-//            generateNewPopulation();
-//            currentIteration++;
-//            result.addPopulation(agents, currentIteration);
-//        }
-//        return result;
-//    }
 }

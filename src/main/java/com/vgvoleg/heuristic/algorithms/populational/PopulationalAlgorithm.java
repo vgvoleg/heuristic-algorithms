@@ -13,6 +13,9 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
     protected int agentCount;
     protected double[][] agents;
 
+    protected double bestSolution;
+    protected double[] bestPosition;
+
     protected int maxIterations;
 
     public PopulationalAlgorithm(OptimizationProblem problem, OptimizationType type,
@@ -29,7 +32,11 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
                 agents[i][j] = uniformDistribution(problem.getLeftEdge(j), problem.getRightEdge(j));
             }
         }
+        bestPosition = agents[0].clone();
+        bestSolution = function(bestPosition);
     }
+
+    protected abstract void updateBestPosition();
 
     protected abstract void generateNewPopulation();
 
@@ -43,18 +50,7 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
             generateNewPopulation();
             currentIteration++;
         }
-
-        double[] bestAgent = agents[0];
-        double bestValue = function(bestAgent);
-        double temp;
-        for (int i = 1; i < agentCount; i++) {
-            temp = function(agents[i]);
-            if (temp < bestValue) {
-                bestAgent = agents[i];
-                bestValue = temp;
-            }
-        }
-        result = new OptimizationResult(bestValue, bestAgent);
+        result = new OptimizationResult(problem.f(bestPosition), bestPosition);
         return result;
     }
 
@@ -68,6 +64,8 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
             result.addPopulation(agents, currentIteration);
             currentIteration++;
         }
+        updateBestPosition();
+        result.setFinalResult(problem.f(bestPosition), bestPosition);
         return result;
     }
 }

@@ -9,4 +9,5 @@
 * Artificial Immune System
 
 #### Utils:
+* Saving step-by-step process of algorithms in JSON
 * Visualization of the method's work (python script)

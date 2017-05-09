@@ -36,7 +36,23 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
         bestSolution = function(bestPosition);
     }
 
-    protected abstract void updateBestPosition();
+    protected void updateBestPosition() {
+        if (type == OptimizationType.MAX) {
+            for (int i = 0; i < agentCount; i++) {
+                if (function(agents[i]) > bestSolution) {
+                    bestPosition = agents[i].clone();
+                    bestSolution = function(bestPosition);
+                }
+            }
+        } else {
+            for (int i = 0; i < agentCount; i++) {
+                if (function(agents[i]) < bestSolution) {
+                    bestPosition = agents[i].clone();
+                    bestSolution = function(bestPosition);
+                }
+            }
+        }
+    }
 
     protected abstract void generateNewPopulation();
 
@@ -51,13 +67,13 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
             currentIteration++;
         }
         updateBestPosition();
-        result = new OptimizationResult(problem.f(bestPosition), bestPosition);
+        result = new OptimizationResult(problem, problem.f(bestPosition), bestPosition);
         return result;
     }
 
     @Override
     public OptimizationDetailedResult findDetailedResult(int screenshotMaxNum) {
-        OptimizationDetailedResult result = new OptimizationDetailedResult(maxIterations, screenshotMaxNum);
+        OptimizationDetailedResult result = new OptimizationDetailedResult(problem, maxIterations, screenshotMaxNum);
         int currentIteration = 0;
         init();
         while (currentIteration != maxIterations) {

@@ -5,6 +5,8 @@ import java.util.List;
 
 public final class OptimizationDetailedResult {
 
+    private OptimizationProblem problem;
+
     private List<double[][]> populations;
     private int screenshotMark;
     private int screenshotCurrNum;
@@ -12,7 +14,8 @@ public final class OptimizationDetailedResult {
     private double extremumValue;
     private double[] extremumPoint;
 
-    public OptimizationDetailedResult(int iterations, int screenshotNumber) {
+    public OptimizationDetailedResult(OptimizationProblem problem, int iterations, int screenshotNumber) {
+        this.problem = problem;
         screenshotMark = (iterations >= screenshotNumber) ?
                 iterations / screenshotNumber : iterations;
         screenshotCurrNum = 0;
@@ -49,10 +52,10 @@ public final class OptimizationDetailedResult {
 
     public void printResult() {
         System.out.print("Extremum point: {");
-        for (int i = 0; i < extremumPoint.length - 1; i++) {
+        for (int i = 0; i < problem.getDimension() - 1; i++) {
             System.out.printf("%.6f, ", extremumPoint[i]);
         }
-        System.out.printf("%.6f}\n", extremumPoint[extremumPoint.length - 1]);
+        System.out.printf("%.6f}\n", extremumPoint[problem.getDimension() - 1]);
         System.out.printf("Extremum value: %.6f", extremumValue);
         System.out.println();
         System.out.println("===================================");

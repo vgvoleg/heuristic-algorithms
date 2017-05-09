@@ -1,4 +1,4 @@
-package com.vgvoleg.heuristic.algorithms;
+package com.vgvoleg.heuristic.algorithms.populational.genetic;
 
 public class Constants {
 

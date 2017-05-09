@@ -3,9 +3,10 @@
 ### Done:
 
 #### Algorithms: 
-* Генетический алгоритм с вещественным кодированием (70%)
-* Метод роя частиц
-* Метод дифференциальной эволюции
+* Genetic Algorithm (70%)
+* Particle Swarm Optimization
+* Differential Evolution
+* Artificial Immune System
 
 #### Utils:
-* Визуализация работы алгоритмов на известных функциях (python script)
+* Visualization of the method's work (python script)

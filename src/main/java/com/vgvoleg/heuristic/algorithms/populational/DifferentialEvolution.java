@@ -44,16 +44,6 @@ class DifferentialEvolution extends PopulationalAlgorithm {
     }
 
     @Override
-    protected void updateBestPosition() {
-        for (int i = 0; i < agentCount; i++) {
-            if (function(agents[i]) < bestSolution) {
-                bestPosition = agents[i].clone();
-                bestSolution = function(bestPosition);
-            }
-        }
-    }
-
-    @Override
     protected void generateNewPopulation() {
         double[][] tempAgents = new double[agentCount][problem.getDimension()];
         double[] newAgent;

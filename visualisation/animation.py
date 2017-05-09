@@ -19,7 +19,7 @@ def update_points(i, data, scat):
         plt.pause(0.01666)
 
 if __name__ == '__main__':
-    pathToFile = "files/" + sys.argv[1] + "_" + sys.argv[2] + ".json"
+    pathToFile = sys.argv[1]
     with open(pathToFile) as data_file:    
         data = json.load(data_file)
 
@@ -27,8 +27,8 @@ if __name__ == '__main__':
     pointsInPopulation = data["pointsInPopulation"]
     pointSize = data["pointSize"]
 
-    function = sys.argv[1]
-    algorithm = sys.argv[2]
+    function = sys.argv[2]
+    algorithm = sys.argv[3]
 
     exec("x, y, z = func." + function + "()")
     fig = plt.figure(algorithm + " algorithm to " + function + " function:")

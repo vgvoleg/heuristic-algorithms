@@ -50,6 +50,7 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
             generateNewPopulation();
             currentIteration++;
         }
+        updateBestPosition();
         result = new OptimizationResult(problem.f(bestPosition), bestPosition);
         return result;
     }

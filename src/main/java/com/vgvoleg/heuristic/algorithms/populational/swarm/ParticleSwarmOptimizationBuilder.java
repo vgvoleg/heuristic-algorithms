@@ -1,4 +1,4 @@
-package com.vgvoleg.heuristic.algorithms.swarm;
+package com.vgvoleg.heuristic.algorithms.populational.swarm;
 
 import com.vgvoleg.heuristic.algorithms.AlgorithmBuilder;
 import com.vgvoleg.heuristic.algorithms.HeuristicAlgorithm;

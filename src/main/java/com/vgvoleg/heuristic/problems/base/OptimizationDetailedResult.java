@@ -9,6 +9,9 @@ public final class OptimizationDetailedResult {
     private int screenshotMark;
     private int screenshotCurrNum;
 
+    private double extremumValue;
+    private double[] extremumPoint;
+
     public OptimizationDetailedResult(int iterations, int screenshotNumber) {
         screenshotMark = (iterations >= screenshotNumber) ?
                 iterations / screenshotNumber : iterations;
@@ -27,7 +30,31 @@ public final class OptimizationDetailedResult {
         }
     }
 
+    public void setFinalResult(double extremumValue, double[] extremumPoint) {
+        this.extremumPoint = extremumPoint;
+        this.extremumValue = extremumValue;
+    }
+
     public List<double[][]> getPopulations() {
         return populations;
+    }
+
+    public double getExtremumValue() {
+        return extremumValue;
+    }
+
+    public double[] getExtremumPoint() {
+        return extremumPoint;
+    }
+
+    public void printResult() {
+        System.out.print("Extremum point: {");
+        for (int i = 0; i < extremumPoint.length - 1; i++) {
+            System.out.printf("%.6f, ", extremumPoint[i]);
+        }
+        System.out.printf("%.6f}\n", extremumPoint[extremumPoint.length - 1]);
+        System.out.printf("Extremum value: %.6f", extremumValue);
+        System.out.println();
+        System.out.println("===================================");
     }
 }

@@ -1,4 +1,4 @@
-package com.vgvoleg.heuristic.algorithms.genetic;
+package com.vgvoleg.heuristic.algorithms.populational.genetic;
 
 import com.vgvoleg.heuristic.algorithms.AlgorithmBuilder;
 import com.vgvoleg.heuristic.algorithms.HeuristicAlgorithm;
@@ -9,10 +9,9 @@ public class RealGeneticAlgorithmBuilder implements AlgorithmBuilder {
     private Selection.Strategy selection = Selection.PANMIXIA;
     private Crossing.Strategy crossing = Crossing.SIMPLE_CROSSOVER;
     private Mutation.Strategy mutation = Mutation.RANDOM;
-    private Stop.Strategy stop = Stop.COUNT_ITERATIONS;
 
-    private int populationSize = 20;
-    private int maxPopulationNumber = 1000;
+    private int agentCount = 20;
+    private int maxIterations = 1000;
 
 
     public RealGeneticAlgorithmBuilder setSelectionType(int type) {
@@ -57,19 +56,19 @@ public class RealGeneticAlgorithmBuilder implements AlgorithmBuilder {
         return this;
     }
 
-    public RealGeneticAlgorithmBuilder setPopulationSize(int populationSize) {
-        this.populationSize = populationSize;
+    public RealGeneticAlgorithmBuilder setAgentCount(int agentCount) {
+        this.agentCount = agentCount;
         return this;
     }
 
-    public RealGeneticAlgorithmBuilder setMaxPopulationNumber(int maxPopulationNumber) {
-        this.maxPopulationNumber = maxPopulationNumber;
+    public RealGeneticAlgorithmBuilder setMaxIterations(int maxIterations) {
+        this.maxIterations = maxIterations;
         return this;
     }
 
     @Override
     public HeuristicAlgorithm buildForProblem(OptimizationProblem problem) {
-        return new RealGeneticAlgorithm(problem, populationSize, maxPopulationNumber,
-                selection, crossing, mutation, stop);
+        return new RealGeneticAlgorithm(problem, agentCount, maxIterations,
+                selection, crossing, mutation);
     }
 }

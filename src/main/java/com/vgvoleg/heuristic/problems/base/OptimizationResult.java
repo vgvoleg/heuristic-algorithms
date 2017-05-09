@@ -25,5 +25,6 @@ public final class OptimizationResult {
         }
         System.out.printf("%.6f}\n", extremumPoint[extremumPoint.length - 1]);
         System.out.printf("Extremum value: %.6f", extremumValue);
+        System.out.println();
     }
 }

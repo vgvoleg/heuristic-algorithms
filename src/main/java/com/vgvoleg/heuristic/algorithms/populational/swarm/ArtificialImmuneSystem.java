@@ -36,7 +36,7 @@ class ArtificialImmuneSystem extends PopulationalAlgorithm {
             agents[i][problem.getDimension()] = function(agents[i]);
         }
         bestPosition = agents[0].clone();
-        bestSolution = function(bestPosition);
+        bestSolution = bestPosition[problem.getDimension()];
 
         cloneNum = new int[parentCount];
         for (int i = 0; i < parentCount; i++) {
@@ -88,7 +88,7 @@ class ArtificialImmuneSystem extends PopulationalAlgorithm {
         }
 
         for (int i = 0; i < cloneNum[indexParent]; i++) {
-            if (function(clones[i]) < function(agents[indexParent])) {
+            if (clones[i][problem.getDimension()] < agents[indexParent][problem.getDimension()]) {
                 agents[indexParent] = clones[i].clone();
             }
         }

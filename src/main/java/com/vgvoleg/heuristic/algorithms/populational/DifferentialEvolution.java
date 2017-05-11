@@ -22,7 +22,7 @@ class DifferentialEvolution extends PopulationalAlgorithm {
     }
 
     private double[] createNewAgent(double[] x1, double[] x2, double[] x3) {
-        double[] result = new double[problem.getDimension()];
+        double[] result = new double[problem.getDimension() + 1];
         double tempValue;
         for (int i = 0; i < problem.getDimension(); i++) {
             tempValue = x1[i] + F * (x2[i] - x3[i]);
@@ -31,6 +31,7 @@ class DifferentialEvolution extends PopulationalAlgorithm {
             }
             result[i] = tempValue;
         }
+        result[problem.getDimension()] = function(result);
         return result;
     }
 
@@ -40,12 +41,13 @@ class DifferentialEvolution extends PopulationalAlgorithm {
                 x2[i] = x1[i];
             }
         }
+        x2[problem.getDimension()] = function(x2);
         return x2;
     }
 
     @Override
     protected void generateNewPopulation() {
-        double[][] tempAgents = new double[agentCount][problem.getDimension()];
+        double[][] tempAgents = new double[agentCount][problem.getDimension() + 1];
         double[] newAgent;
         for (int i = 0; i < agentCount; i++) {
             List<Integer> indexes = new ArrayList<>();
@@ -61,9 +63,8 @@ class DifferentialEvolution extends PopulationalAlgorithm {
                     agents[indexes.get(2)],
                     agents[indexes.get(3)]);
             newAgent = crossing(agents[i], newAgent);
-            tempAgents[i] = function(newAgent) < function(agents[i]) ? newAgent : agents[i];
+            tempAgents[i] = newAgent[problem.getDimension()] < agents[i][problem.getDimension()] ? newAgent : agents[i];
         }
         agents = tempAgents;
-        updateBestPosition();
     }
 }

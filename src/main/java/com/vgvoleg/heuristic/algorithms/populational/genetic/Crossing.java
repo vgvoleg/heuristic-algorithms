@@ -11,7 +11,7 @@ class Crossing {
     }
 
     static final Strategy SIMPLE_CROSSOVER = (population, problem) -> {
-        double[][] childrens = new double[2][problem.getDimension()];
+        double[][] childrens = new double[2][problem.getDimension() + 1];
         int p = (int) uniformDistribution(0, problem.getDimension());
         for (int i = 0; i < p; i++) {
             childrens[0][i] = population[1][i];
@@ -21,7 +21,6 @@ class Crossing {
             childrens[0][i] = population[0][i];
             childrens[1][i] = population[1][i];
         }
-
         return childrens;
     };
 

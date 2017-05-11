@@ -47,10 +47,10 @@ class ParticleSwarmOptimization extends PopulationalAlgorithm {
     @Override
     protected void updateBestPosition() {
         for (int i = 0; i < agentCount; i++) {
-            if (function(bestParticlePosition[i]) < function(bestSwarmPosition)) {
+            if (bestParticlePosition[i][problem.getDimension()] < bestSwarmPosition[problem.getDimension()]) {
                 bestSwarmPosition = bestParticlePosition[i].clone();
                 bestPosition = bestSwarmPosition.clone();
-                bestSolution = function(bestPosition);
+                bestSolution = bestPosition[problem.getDimension()];
             }
         }
     }
@@ -74,7 +74,8 @@ class ParticleSwarmOptimization extends PopulationalAlgorithm {
                     agents[i][j] = problem.getRightEdge(j);
                 }
             }
-            if (function(agents[i]) < function(bestParticlePosition[i])) {
+            agents[i][problem.getDimension()] = function(agents[i]);
+            if (agents[i][problem.getDimension()] < bestParticlePosition[i][problem.getDimension()]) {
                 bestParticlePosition[i] = agents[i].clone();
             }
         }

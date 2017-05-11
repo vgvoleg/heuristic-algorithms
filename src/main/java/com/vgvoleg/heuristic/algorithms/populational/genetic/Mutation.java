@@ -21,7 +21,6 @@ class Mutation {
             }
             i++;
         }
-
         flag = true;
         i = 0;
         while (flag) {

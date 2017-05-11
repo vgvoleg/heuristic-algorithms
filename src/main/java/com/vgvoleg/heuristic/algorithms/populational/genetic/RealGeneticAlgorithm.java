@@ -23,10 +23,10 @@ class RealGeneticAlgorithm extends PopulationalAlgorithm {
 
     private void changeWorstElement(double[] x) {
         int indexWorst = 0;
-        double worstValue = function(agents[0]);
+        double worstValue = agents[0][problem.getDimension()];
         for (int i = 1; i < agentCount; i++) {
-            if (function(agents[i]) < worstValue) {
-                worstValue = function(agents[i]);
+            if (agents[i][problem.getDimension()] < worstValue) {
+                worstValue = agents[i][problem.getDimension()];
                 indexWorst = i;
             }
         }
@@ -40,7 +40,8 @@ class RealGeneticAlgorithm extends PopulationalAlgorithm {
             parents = selection.execute(agents, problem);
             childrens = crossing.execute(parents, problem);
             mutants = mutation.execute(childrens, problem);
-            int indexMutant = (uniformDistribution(0, 1) < 0.5) ? 0 : 1;
+            int indexMutant = (int) uniformDistribution(0, mutants.length);
+            mutants[indexMutant][problem.getDimension()] = function(mutants[indexMutant]);
             changeWorstElement(mutants[indexMutant]);
         }
     }

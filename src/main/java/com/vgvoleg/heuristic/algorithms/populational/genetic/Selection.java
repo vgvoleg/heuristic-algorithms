@@ -11,7 +11,7 @@ class Selection {
     }
 
     static Strategy PANMIXIA = (population, problem) -> {
-        double[][] parents = new double[2][problem.getDimension()];
+        double[][] parents = new double[2][problem.getDimension() + 1];
         int firstParentIndex = (int) uniformDistribution(0, population.length);
         int secondParentIndex;
         while (true) {

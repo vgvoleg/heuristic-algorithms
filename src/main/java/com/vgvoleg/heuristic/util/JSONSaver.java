@@ -16,7 +16,7 @@ public class JSONSaver {
         List<double[][]> listOfPopulations = result.getPopulations();
         object.put("populationsCount", populationsCount);
         object.put("pointsInPopulation", listOfPopulations.get(0).length);
-        object.put("pointSize", listOfPopulations.get(0)[0].length); // TODO: make this shit beauty
+        object.put("pointSize", listOfPopulations.get(0)[0].length - 1); // TODO: make this shit beauty
 
         JSONArray points;
         JSONArray point;
@@ -27,7 +27,7 @@ public class JSONSaver {
             p = listOfPopulations.get(i);
             for (int j = 0; j < p.length; j++) {
                 point = new JSONArray();
-                for (int k = 0; k < p[0].length; k++) {
+                for (int k = 0; k < p[0].length - 1; k++) { // TODO: magic
                     point.add(p[j][k]);
                 }
                 points.add(j, point);

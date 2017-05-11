@@ -26,29 +26,30 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
     }
 
     protected void init() {
-        agents = new double[agentCount][problem.getDimension()];
+        agents = new double[agentCount][problem.getDimension() + 1];
         for (int i = 0; i < agentCount; i++) {
             for (int j = 0; j < problem.getDimension(); j++) {
                 agents[i][j] = uniformDistribution(problem.getLeftEdge(j), problem.getRightEdge(j));
             }
+            agents[i][problem.getDimension()] = function(agents[i]);
         }
         bestPosition = agents[0].clone();
-        bestSolution = function(bestPosition);
+        bestSolution = bestPosition[problem.getDimension()];
     }
 
     protected void updateBestPosition() {
         if (type == OptimizationType.MAX) {
             for (int i = 0; i < agentCount; i++) {
-                if (function(agents[i]) > bestSolution) {
+                if (agents[i][problem.getDimension()] > bestSolution) {
                     bestPosition = agents[i].clone();
-                    bestSolution = function(bestPosition);
+                    bestSolution = agents[i][problem.getDimension()];
                 }
             }
         } else {
             for (int i = 0; i < agentCount; i++) {
-                if (function(agents[i]) < bestSolution) {
+                if (agents[i][problem.getDimension()] < bestSolution) {
                     bestPosition = agents[i].clone();
-                    bestSolution = function(bestPosition);
+                    bestSolution = agents[i][problem.getDimension()];
                 }
             }
         }
@@ -75,6 +76,7 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
     public OptimizationDetailedResult findDetailedResult(int screenshotMaxNum) {
         OptimizationDetailedResult result = new OptimizationDetailedResult(problem, maxIterations, screenshotMaxNum);
         int currentIteration = 0;
+
         init();
         while (currentIteration != maxIterations) {
             generateNewPopulation();

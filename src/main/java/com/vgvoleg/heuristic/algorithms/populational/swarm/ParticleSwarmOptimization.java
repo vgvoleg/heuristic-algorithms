@@ -4,6 +4,8 @@ import com.vgvoleg.heuristic.algorithms.populational.PopulationalAlgorithm;
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
+import java.util.stream.IntStream;
+
 import static com.vgvoleg.heuristic.util.Generator.uniformDistribution;
 
 class ParticleSwarmOptimization extends PopulationalAlgorithm {
@@ -57,8 +59,8 @@ class ParticleSwarmOptimization extends PopulationalAlgorithm {
 
     @Override
     protected void generateNewPopulation() {
-        double rand1, rand2;
-        for (int i = 0; i < agentCount; i++) {
+        IntStream.range(0, agentCount).parallel().forEach(i->{
+            double rand1, rand2;
             for (int j = 0; j < problem.getDimension(); j++) {
                 rand1 = uniformDistribution(0, 1);
                 rand2 = uniformDistribution(0, 1);
@@ -78,7 +80,7 @@ class ParticleSwarmOptimization extends PopulationalAlgorithm {
             if (agents[i][problem.getDimension()] < bestParticlePosition[i][problem.getDimension()]) {
                 bestParticlePosition[i] = agents[i].clone();
             }
-        }
+        });
         updateBestPosition();
     }
 }

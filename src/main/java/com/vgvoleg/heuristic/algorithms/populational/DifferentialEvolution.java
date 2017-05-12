@@ -5,6 +5,7 @@ import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static com.vgvoleg.heuristic.util.Generator.generateIndex;
 import static com.vgvoleg.heuristic.util.Generator.uniformDistribution;
@@ -48,8 +49,8 @@ class DifferentialEvolution extends PopulationalAlgorithm {
     @Override
     protected void generateNewPopulation() {
         double[][] tempAgents = new double[agentCount][problem.getDimension() + 1];
-        double[] newAgent;
-        for (int i = 0; i < agentCount; i++) {
+        IntStream.range(0, agentCount).parallel().forEach(i->{
+            double[] newAgent;
             List<Integer> indexes = new ArrayList<>();
             indexes.add(i);
             int newIndex;
@@ -64,7 +65,7 @@ class DifferentialEvolution extends PopulationalAlgorithm {
                     agents[indexes.get(3)]);
             newAgent = crossing(agents[i], newAgent);
             tempAgents[i] = newAgent[problem.getDimension()] < agents[i][problem.getDimension()] ? newAgent : agents[i];
-        }
+        });
         agents = tempAgents;
     }
 }

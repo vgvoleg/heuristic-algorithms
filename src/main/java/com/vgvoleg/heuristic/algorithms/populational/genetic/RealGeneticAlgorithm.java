@@ -4,6 +4,8 @@ import com.vgvoleg.heuristic.algorithms.populational.PopulationalAlgorithm;
 import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
+import java.util.stream.IntStream;
+
 import static com.vgvoleg.heuristic.util.Generator.uniformDistribution;
 
 class RealGeneticAlgorithm extends PopulationalAlgorithm {
@@ -35,14 +37,14 @@ class RealGeneticAlgorithm extends PopulationalAlgorithm {
 
     @Override
     protected void generateNewPopulation() {
-        double[][] parents, childrens, mutants;
-        for (int i = 0; i < agentCount; i++) {
+        IntStream.range(0, agentCount).parallel().forEach(i->{
+            double[][] parents, childrens, mutants;
             parents = selection.execute(agents, problem);
             childrens = crossing.execute(parents, problem);
             mutants = mutation.execute(childrens, problem);
             int indexMutant = (int) uniformDistribution(0, mutants.length);
             mutants[indexMutant][problem.getDimension()] = function(mutants[indexMutant]);
             changeWorstElement(mutants[indexMutant]);
-        }
+        });
     }
 }

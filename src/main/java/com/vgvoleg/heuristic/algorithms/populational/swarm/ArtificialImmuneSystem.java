@@ -5,6 +5,7 @@ import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 import com.vgvoleg.heuristic.problems.base.OptimizationType;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 import static com.vgvoleg.heuristic.util.Generator.uniformDistribution;
 
@@ -94,21 +95,21 @@ class ArtificialImmuneSystem extends PopulationalAlgorithm {
         }
     }
 
-    private void refreshWorstAgents() {
-        for (int i = agentCount - 1; i >= agentCount - 1 - refreshCount; i--) {
-            for (int j = 0; j < problem.getDimension(); j++) {
-                agents[i][j] = uniformDistribution(problem.getLeftEdge(j), problem.getRightEdge(j));
-            }
-            agents[i][problem.getDimension()] = function(agents[i]);
+    private void refreshAgent(int agentIndex){
+        for (int j = 0; j < problem.getDimension(); j++) {
+            agents[agentIndex][j] = uniformDistribution(problem.getLeftEdge(j), problem.getRightEdge(j));
         }
+        agents[agentIndex][problem.getDimension()] = function(agents[agentIndex]);
     }
 
     @Override
     protected void generateNewPopulation() {
         sortAgents();
-        for (int i = 0; i < parentCount; i++) {
+        IntStream.range(0, parentCount).parallel().forEach(i->{
             updateParent(i);
-        }
-        refreshWorstAgents();
+            if (i<refreshCount){
+                refreshAgent(agentCount-1-i);
+            }
+        });
     }
 }

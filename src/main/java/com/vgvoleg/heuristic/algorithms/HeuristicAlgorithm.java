@@ -11,9 +11,6 @@ public abstract class HeuristicAlgorithm {
 
     private int COEF;
 
-    protected int successIteration = -1;
-    private double EPS = 0.1;
-
     public HeuristicAlgorithm(OptimizationProblem problem, OptimizationType type) {
         this.problem = problem;
         this.type = type;
@@ -38,21 +35,6 @@ public abstract class HeuristicAlgorithm {
 
     public abstract OptimizationDetailedResult findDetailedResult(int screenshotMaxNum);
 
-    // TODO: just for statistic
-    protected void updateSuccessIteration(int iteration, double extremumValue) {
-        if (successIteration == -1 && Math.abs(extremumValue - problem.getExpectedResult()) <= EPS) {
-            successIteration = iteration + 1;
-        }
-    }
-
     public abstract String getName();
-
-    public int getSuccessIteration() {
-        return successIteration;
-    }
-
-    public void reset() {
-        successIteration = -1;
-    }
 
 }

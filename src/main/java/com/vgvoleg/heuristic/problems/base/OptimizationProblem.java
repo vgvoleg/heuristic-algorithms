@@ -6,8 +6,6 @@ public class OptimizationProblem {
     private Function function;
     private double[][] edges;
 
-    private double expectedResult;
-
     public OptimizationProblem(OptimizationType type, int dimension, Function function, double[][] edges) {
         this.type = type;
         this.dimension = dimension;
@@ -33,15 +31,5 @@ public class OptimizationProblem {
 
     public double getRightEdge(int dimension) {
         return edges[dimension][1];
-    }
-
-    //TODO: just for statistic
-    public void setExpectedResult(double expectedResult) {
-        this.expectedResult = expectedResult;
-    }
-
-    public double getExpectedResult() {
-        // TODO: reorganize this
-        return expectedResult;
     }
 }

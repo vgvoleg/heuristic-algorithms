@@ -12,6 +12,8 @@ import static com.vgvoleg.heuristic.util.Generator.uniformDistribution;
 
 class DifferentialEvolution extends PopulationalAlgorithm {
 
+    private static String METHOD_NAME = "Differential Evolution";
+
     private double F;
     private double CR;
 
@@ -67,5 +69,10 @@ class DifferentialEvolution extends PopulationalAlgorithm {
             tempAgents[i] = newAgent[problem.getDimension()] < agents[i][problem.getDimension()] ? newAgent : agents[i];
         });
         agents = tempAgents;
+    }
+
+    @Override
+    public String getName() {
+        return METHOD_NAME;
     }
 }

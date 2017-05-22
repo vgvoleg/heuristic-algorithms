@@ -10,6 +10,8 @@ import static com.vgvoleg.heuristic.util.Generator.uniformDistribution;
 
 class RealGeneticAlgorithm extends PopulationalAlgorithm {
 
+    private static String METHOD_NAME = "Genetic Algorithm";
+
     private Selection.Strategy selection;
     private Crossing.Strategy crossing;
     private Mutation.Strategy mutation;
@@ -46,5 +48,10 @@ class RealGeneticAlgorithm extends PopulationalAlgorithm {
             mutants[indexMutant][problem.getDimension()] = function(mutants[indexMutant]);
             changeWorstElement(mutants[indexMutant]);
         });
+    }
+
+    @Override
+    public String getName() {
+        return METHOD_NAME;
     }
 }

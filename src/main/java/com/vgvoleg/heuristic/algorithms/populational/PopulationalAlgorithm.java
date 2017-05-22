@@ -26,6 +26,7 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
     }
 
     protected void init() {
+        this.successIteration = -1;
         agents = new double[agentCount][problem.getDimension() + 1];
         for (int i = 0; i < agentCount; i++) {
             for (int j = 0; j < problem.getDimension(); j++) {
@@ -59,16 +60,18 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
 
     @Override
     public OptimizationResult findResult() {
-        OptimizationResult result;
+        OptimizationResult result = new OptimizationResult(problem);
         int currentIteration = 0;
 
         init();
         while (currentIteration != maxIterations) {
             generateNewPopulation();
+            updateBestPosition();
+            updateSuccessIteration(currentIteration, getNormalResult(bestSolution)); //TODO: just for statistic
             currentIteration++;
         }
         updateBestPosition();
-        result = new OptimizationResult(problem, problem.f(bestPosition), bestPosition);
+        result.setFinalResult(getNormalResult(bestSolution), bestPosition);
         return result;
     }
 
@@ -84,7 +87,7 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
             currentIteration++;
         }
         updateBestPosition();
-        result.setFinalResult(problem.f(bestPosition), bestPosition);
+        result.setFinalResult(getNormalResult(bestSolution), bestPosition);
         return result;
     }
 }

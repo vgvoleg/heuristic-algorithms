@@ -3,19 +3,14 @@ package com.vgvoleg.heuristic.problems.base;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class OptimizationDetailedResult {
-
-    private OptimizationProblem problem;
+public final class OptimizationDetailedResult extends OptimizationResult {
 
     private List<double[][]> populations;
     private int screenshotMark;
     private int screenshotCurrNum;
 
-    private double extremumValue;
-    private double[] extremumPoint;
-
     public OptimizationDetailedResult(OptimizationProblem problem, int iterations, int screenshotNumber) {
-        this.problem = problem;
+        super(problem);
         screenshotMark = (iterations >= screenshotNumber) ?
                 iterations / screenshotNumber : iterations;
         screenshotCurrNum = 0;
@@ -33,31 +28,7 @@ public final class OptimizationDetailedResult {
         }
     }
 
-    public void setFinalResult(double extremumValue, double[] extremumPoint) {
-        this.extremumPoint = extremumPoint;
-        this.extremumValue = extremumValue;
-    }
-
     public List<double[][]> getPopulations() {
         return populations;
-    }
-
-    public double getExtremumValue() {
-        return extremumValue;
-    }
-
-    public double[] getExtremumPoint() {
-        return extremumPoint;
-    }
-
-    public void printResult() {
-        System.out.print("Extremum point: {");
-        for (int i = 0; i < problem.getDimension() - 1; i++) {
-            System.out.printf("%.6f, ", extremumPoint[i]);
-        }
-        System.out.printf("%.6f}\n", extremumPoint[problem.getDimension() - 1]);
-        System.out.printf("Extremum value: %.6f", extremumValue);
-        System.out.println();
-        System.out.println("===================================");
     }
 }

@@ -10,6 +10,8 @@ import static com.vgvoleg.heuristic.util.Generator.uniformDistribution;
 
 class ParticleSwarmOptimization extends PopulationalAlgorithm {
 
+    private static String METHOD_NAME = "Particle Swarm Optimization";
+
     private double[][] velocities;
 
     private double[][] bestParticlePosition;
@@ -82,5 +84,10 @@ class ParticleSwarmOptimization extends PopulationalAlgorithm {
             }
         });
         updateBestPosition();
+    }
+
+    @Override
+    public String getName() {
+        return METHOD_NAME;
     }
 }

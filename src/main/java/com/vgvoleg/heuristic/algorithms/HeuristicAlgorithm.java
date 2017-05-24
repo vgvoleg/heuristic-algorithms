@@ -8,6 +8,7 @@ import com.vgvoleg.heuristic.problems.base.OptimizationType;
 public abstract class HeuristicAlgorithm {
     protected OptimizationProblem problem;
     protected OptimizationType type;
+
     private int COEF;
 
     public HeuristicAlgorithm(OptimizationProblem problem, OptimizationType type) {
@@ -26,8 +27,14 @@ public abstract class HeuristicAlgorithm {
         return COEF * problem.f(x);
     }
 
+    protected double getNormalResult(double x) {
+        return COEF * x;
+    }
+
     public abstract OptimizationResult findResult();
 
     public abstract OptimizationDetailedResult findDetailedResult(int screenshotMaxNum);
+
+    public abstract String getName();
 
 }

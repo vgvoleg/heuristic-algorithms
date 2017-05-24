@@ -10,7 +10,7 @@ public class ArtificialImmuneSystemBuilder implements AlgorithmBuilder {
     private int maxIterations = 1000;
     private int parentCount = 10;
     private int refreshCount = 5;
-    private double beta = 10;
+    private double beta = 5;
     private double r = 0.1;
 
     public ArtificialImmuneSystemBuilder setAgentCount(int agentCount) {

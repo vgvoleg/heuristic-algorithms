@@ -1,16 +1,19 @@
 package com.vgvoleg.heuristic.problems.base;
 
-public final class OptimizationResult {
+public class OptimizationResult {
 
     private OptimizationProblem problem;
 
     private double extremumValue;
     private double[] extremumPoint;
 
-    public OptimizationResult(OptimizationProblem problem, double extremumValue, double[] extremumPoint) {
+    public OptimizationResult(OptimizationProblem problem) {
         this.problem = problem;
-        this.extremumValue = extremumValue;
+    }
+
+    public void setFinalResult(double extremumValue, double[] extremumPoint) {
         this.extremumPoint = extremumPoint;
+        this.extremumValue = extremumValue;
     }
 
     public double getExtremumValue() {

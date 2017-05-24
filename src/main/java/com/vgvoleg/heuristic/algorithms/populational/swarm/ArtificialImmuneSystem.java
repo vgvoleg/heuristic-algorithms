@@ -11,6 +11,8 @@ import static com.vgvoleg.heuristic.util.Generator.uniformDistribution;
 
 class ArtificialImmuneSystem extends PopulationalAlgorithm {
 
+    private static String METHOD_NAME = "Artificial Immune System";
+
     private int parentCount;
     private int refreshCount;
     private double beta;
@@ -29,16 +31,7 @@ class ArtificialImmuneSystem extends PopulationalAlgorithm {
 
     @Override
     protected void init() {
-        agents = new double[agentCount][problem.getDimension() + 1];
-        for (int i = 0; i < agentCount; i++) {
-            for (int j = 0; j < problem.getDimension(); j++) {
-                agents[i][j] = uniformDistribution(problem.getLeftEdge(j), problem.getRightEdge(j));
-            }
-            agents[i][problem.getDimension()] = function(agents[i]);
-        }
-        bestPosition = agents[0].clone();
-        bestSolution = bestPosition[problem.getDimension()];
-
+        super.init();
         cloneNum = new int[parentCount];
         for (int i = 0; i < parentCount; i++) {
             cloneNum[i] = (int) ((beta * agentCount) / (i + 1));
@@ -111,5 +104,10 @@ class ArtificialImmuneSystem extends PopulationalAlgorithm {
                 refreshAgent(agentCount-1-i);
             }
         });
+    }
+
+    @Override
+    public String getName() {
+        return METHOD_NAME;
     }
 }

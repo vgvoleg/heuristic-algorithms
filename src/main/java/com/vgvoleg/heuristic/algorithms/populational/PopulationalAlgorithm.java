@@ -59,16 +59,17 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
 
     @Override
     public OptimizationResult findResult() {
-        OptimizationResult result;
+        OptimizationResult result = new OptimizationResult(problem);
         int currentIteration = 0;
 
         init();
         while (currentIteration != maxIterations) {
             generateNewPopulation();
+            updateBestPosition();
             currentIteration++;
         }
         updateBestPosition();
-        result = new OptimizationResult(problem, problem.f(bestPosition), bestPosition);
+        result.setFinalResult(getNormalResult(bestSolution), bestPosition);
         return result;
     }
 
@@ -84,7 +85,7 @@ public abstract class PopulationalAlgorithm extends HeuristicAlgorithm {
             currentIteration++;
         }
         updateBestPosition();
-        result.setFinalResult(problem.f(bestPosition), bestPosition);
+        result.setFinalResult(getNormalResult(bestSolution), bestPosition);
         return result;
     }
 }

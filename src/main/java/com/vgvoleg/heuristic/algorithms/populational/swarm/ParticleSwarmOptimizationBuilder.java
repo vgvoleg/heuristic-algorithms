@@ -7,8 +7,7 @@ import com.vgvoleg.heuristic.problems.base.OptimizationProblem;
 public class ParticleSwarmOptimizationBuilder implements AlgorithmBuilder {
     private int agentCount = 20;
     private int maxIterations = 1000;
-
-    private double omega = 0.7298, c1 = 2, c2 = 2;
+    private double omega = 0.7298, c1 = 1.943700, c2 = 0.553969;
 
     public ParticleSwarmOptimizationBuilder setAgentCount(int agentCount) {
         this.agentCount = agentCount;
